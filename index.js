@@ -47,6 +47,7 @@ joinSession.addEventListener("click", function(){
 	$("#join-session").hide();
 	$("#join-session-div").show();
 	$("#pageHeader").text("Join Session");
+	$("#join-session-warning-label").text("");
 });
 
 
@@ -64,7 +65,6 @@ continueCreateSession.addEventListener("click", function(){
 	var option3 = document.getElementById('session-option-3').value;
 	var option4 = document.getElementById('session-option-4').value;
 	var roomID = randomString(4);
-	roomID = 'FAFA';
 	
 	createRoom(roomID, option1, option2, option3, option4, question, 0, 1);
 
@@ -74,12 +74,10 @@ continueCreateSession.addEventListener("click", function(){
 });
 
 continueJoinSession.addEventListener("click", function(){
+
 	var sessionCode = document.getElementById('session-code').value;
-
-	$("#guest-lobby-div").show();
-	$("#join-session-div").hide();
-
-	$("#session-code-label").text(sessionCode);
+	console.log("Called");
+	joinRoom(sessionCode);
 });
 
 
@@ -99,7 +97,22 @@ function createRoom(roomID, option1, option2, option3, option4, question, state,
 }
 
 function joinRoom(roomID){
-	database.ref('/rooms/').child
+	var mySnapshot;
+	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+		console.log(mySnapshot);
+	}).then(function(){
+		if(mySnapshot == null){
+			$("#join-session-warning-label").text("Invalid Session Code");
+		}else{
+			$("#guest-lobby-div").show();
+			$("#join-session-div").hide();
+			$("#session-code-label").text(roomID);
+			mySnapshot.users = mySnapshot.users + 1;
+			database.ref('/rooms/' + roomID).update(mySnapshot);
+			$("#guest-user-count-label").text(mySnapshot.users);
+		}
+	});
 }
 
 
