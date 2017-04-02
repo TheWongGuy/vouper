@@ -48,23 +48,28 @@ continueCreateSession.addEventListener("click", function(){
 	var option3 = document.getElementById('session-option-3').value;
 	var option4 = document.getElementById('session-option-4').value;
 	var roomID = randomString(4);
-	roomID = 'FFFF';
-	console.log(checkKeyExists(roomID));
-
-	writeRoomData(roomID, option1, option2, option3, option4, question, 0, 1);	
-
+	roomID = 'FAFA';
+	
+	createRoom(roomID, option1, option2, option3, option4, question, 0, 1);
+	
 });
 
-function checkKeyExists(roomID) {
-  database.ref().child('rooms').child(roomID).once('value', function(snapshot) {
-    var exists = snapshot.val();
-    if(exists){
-    	return true;
-    }else{
-    	return false;
-    }
-  });
+function createRoom(roomID, option1, option2, option3, option4, question, state, users) {
+	var mySnapshot;
+  	database.ref('/rooms/').child(roomID).once('value', function(snapshot) {
+    	mySnapshot = snapshot.val();
+  	}).then(function(){
+  		if(mySnapshot == null){
+  			writeRoomData(roomID, option1, option2, option3, option4, question, 0, 1);	
+  		}else{
+  			var myRoomID = randomString(4);
+  			createRoom(myRoomID, option1, option2, option3, option4, question, 0, 1);
+  			return true;
+  		}
+  	});
 }
+
+
 
 function writeRoomData(roomID, option1, option2, option3, option4, question, state, users){
 	var obj = {
