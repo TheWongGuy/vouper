@@ -7,8 +7,10 @@ var continueJoinSession = document.getElementById('continue-join-session');
 var database = firebase.database();
 
 
+
 //ON PAGE LOAD
 $(document).ready(function(){
+	console.log(Cookies.get("lastRoomID"));
 	if($("#create-session").is(":visible")){
 		$("#create-session-div").hide();
 		$("#guest-lobby-div").hide();
@@ -19,6 +21,9 @@ $(document).ready(function(){
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
 	}
+	if(Cookies.get("lastRoomID") != null){
+		leaveGuestLobby(Cookies.get("lastRoomID"));
+	}
 });
 
 
@@ -27,9 +32,11 @@ signIn.addEventListener("click", function(){
 });
 
 signOut.addEventListener("click", function(){
+	if(Cookies.get("lastRoomID") != null){
+		leaveGuestLobby(Cookies.get("lastRoomID"));
+	}
 	firebase.auth().signOut();
 	firebase.auth().currentUser.delete().then(function(){
-		console.log("deleted");
 	}, function(error){
 		console.log(error);
 	});
@@ -75,7 +82,10 @@ continueCreateSession.addEventListener("click", function(){
 
 continueJoinSession.addEventListener("click", function(){
 	var sessionCode = document.getElementById('session-code').value;
+<<<<<<< HEAD
 	console.log("Called");
+=======
+>>>>>>> 55f23706503f1f486b2f0e5d89e4210ed9e55b81
 	joinGuestLobby(sessionCode);
 });
 
@@ -96,10 +106,13 @@ function createRoom(roomID, option1, option2, option3, option4, question, state,
 }
 
 function joinGuestLobby(roomID){
+<<<<<<< HEAD
+=======
+	Cookies.set("lastRoomID", roomID);
+>>>>>>> 55f23706503f1f486b2f0e5d89e4210ed9e55b81
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
 		mySnapshot = snapshot.val();
-		console.log(mySnapshot);
 	}).then(function(){
 		if(mySnapshot == null){
 			$("#join-session-warning-label").text("Invalid Session Code");
@@ -110,10 +123,12 @@ function joinGuestLobby(roomID){
 			mySnapshot.users = mySnapshot.users + 1;
 			database.ref('/rooms/' + roomID).update(mySnapshot);
 			$("#guest-user-count-label").text(mySnapshot.users);
+			updateUserCountGuest(roomID);
 		}
 	});
 }
 
+<<<<<<< HEAD
 function joinHeadLobby(roomID){
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
@@ -132,6 +147,39 @@ function joinHeadLobby(roomID){
 		}
 	});
 }
+=======
+
+function updateUserCountGuest(roomID, dbSnapshot){
+	var guestUserCount = database.ref('/rooms/' + roomID + '/users');
+	if($("#guest-lobby-div").is(":visible")){
+		
+		guestUserCount.on('value', function(snapshot){
+			$("#guest-user-count-label").text(snapshot.val());
+		});
+
+	}else{
+
+		guestUserCount.off('value', function(snapshot){
+			$("#guest-user-count-label").text(snapshot.val());
+		});
+	}
+	
+}
+
+function leaveGuestLobby(roomID){
+	var mySnapshot;
+	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+	}).then(function(){
+		mySnapshot.users = mySnapshot.users - 1;
+		$("#guest-lobby-div").hide();			
+		database.ref('/rooms/' + roomID).update(mySnapshot);
+		
+		Cookies.get("lastRoomID", null);
+	});
+}
+
+>>>>>>> 55f23706503f1f486b2f0e5d89e4210ed9e55b81
 
 function writeRoomData(roomID, option1, option2, option3, option4, question, state, users){
 	var obj = {
@@ -167,6 +215,10 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 		$("#create-session-div").hide();
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
+<<<<<<< HEAD
+		
+=======
 		$("#head-lobby-div").hide();
+>>>>>>> 7c5127921fc2f10fd18e8413d49923d43cae0397
 	}
 });
