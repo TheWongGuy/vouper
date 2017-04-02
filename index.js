@@ -3,6 +3,7 @@ var signOut = document.getElementById('sign-out');
 var createSession = document.getElementById('create-session');
 var joinSession = document.getElementById('join-session');
 var continueCreateSession = document.getElementById('continue-create-session');
+var continueJoinSession = document.getElementById('continue-join-session');
 var database = firebase.database();
 
 
@@ -10,6 +11,11 @@ var database = firebase.database();
 $(document).ready(function(){
 	if($("#create-session").is(":visible")){
 		$("#create-session-div").hide();
+		$("#guest-lobby-div").hide();
+	}
+	if($("#join-session").is(":visible")){
+		$("#join-session-div").hide();
+		$("#guest-lobby-div").hide();
 	}
 });
 
@@ -34,6 +40,14 @@ createSession.addEventListener("click", function(){
 	$("#pageHeader").text("Create Session");
 });
 
+joinSession.addEventListener("click", function(){
+	$("#create-session").hide();
+	$("#join-session").hide();
+	$("#join-session-div").show();
+	$("#pageHeader").text("Join Session");
+});
+
+
 function randomString(length){
 	var chars ='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 	var result = '';
@@ -54,6 +68,16 @@ continueCreateSession.addEventListener("click", function(){
 	
 });
 
+continueJoinSession.addEventListener("click", function(){
+	var sessionCode = document.getElementById('session-code').value;
+
+	$("#guest-lobby-div").show();
+	$("#join-session-div").hide();
+
+	$("#session-code-label").text(sessionCode);
+});
+
+
 function createRoom(roomID, option1, option2, option3, option4, question, state, users) {
 	var mySnapshot;
   	database.ref('/rooms/').child(roomID).once('value', function(snapshot) {
@@ -67,6 +91,10 @@ function createRoom(roomID, option1, option2, option3, option4, question, state,
   			return true;
   		}
   	});
+}
+
+function joinRoom(roomID){
+	database.ref('/rooms/').child
 }
 
 
@@ -103,5 +131,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 		$("#join-session").hide();
 		$("#pageHeader").text("Vouper");
 		$("#create-session-div").hide();
+		$("#join-session-div").hide();
+		$("#guest-lobby-div").hide();
 	}
 });
