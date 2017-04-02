@@ -51,6 +51,9 @@ start.addEventListener("click", function(){
 	//changes state, 
 	$("#head-lobby-div").hide();
 	$("#question-div").show();
+	if(Cookies.get("lastRoomID") != null){
+		getChoices(Cookies.get("lastRoomID"));
+	}
 })
 
 createSession.addEventListener("click", function(){
@@ -171,8 +174,45 @@ function joinHeadLobby(roomID){
 }
 
 
+function getChoices(roomID){
+	database.ref('/rooms/'+roomID).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+		var keys = [];
+		var vals = [];
+		for(var i in mySnapshot){
+			var key = i;
+			keys.push(key);
+		}
+
+		$("#top-left").text(keys[0]);
+		$("#top-right").text(keys[1]);
+		$("#bottom-left").text(keys[2]);
+		$("#bottom-right").text(keys[3]);
 
 
+		/*
+		if(keys[0] == "NOQUESTION"){
+			$("#top-left").text("");
+			$("#top-left").prop("disabled", true);
+		}
+		if(keys[1] == "NOQUESTION"){
+			$("#top-right").text("");
+			$("#top-right").prop("disabled", true);
+		}
+		if(keys[2] == "NOQUESTION"){
+			$("#bottom-left").text("");
+			$("#bottom-left").prop("disabled", true);
+		}
+		if(keys[3] == "NOQUESTION"){
+			$("#bottom-right").text("");
+			$("#bottom-right").prop("disabled", true);
+		} */
+	});
+}
+
+function onClick(){
+
+}
 
 function updateUserCountGuest(roomID, dbSnapshot){
 	var guestUserCount = database.ref('/rooms/' + roomID + '/users');
