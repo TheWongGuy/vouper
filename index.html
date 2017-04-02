@@ -1,0 +1,80 @@
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width" intitial-scale="1" maximum-scale="1">
+		<script
+	    src="https://code.jquery.com/jquery-3.2.1.min.js"
+	    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	    crossorigin="anonymous"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyCjUv881O4D2xJYchD6YyVmb7sW8xIxq9U",
+		    authDomain: "vouper-a248b.firebaseapp.com",
+		    databaseURL: "https://vouper-a248b.firebaseio.com",
+		    projectId: "vouper-a248b",
+		    storageBucket: "vouper-a248b.appspot.com",
+		    messagingSenderId: "136021499064"
+		  };
+		  firebase.initializeApp(config);
+		</script>
+	</head>
+
+	<body>
+		<center>
+			<h1 id="pageHeader">Vouper</h1>
+			<br>
+			<br>
+			<button id="sign-in" class="btn btn-primary">
+				SIGN IN ANONYMOUSLY
+			</button>
+			<button id="create-session" class="btn btn-primary">
+				CREATE SESSION
+			</button>
+			<button id="join-session" class="btn btn-primary">
+				JOIN SESSION
+			</button>
+
+			<!-- Create Session -->
+			<div id="create-session-div">
+				<h3> What is your question? </h3>
+				<input id="session-question" type="text" style="width:80%;" container-fluid">
+				<h5> Option 1 </h5>
+				<input id="session-option-1" type="text" style="width:30%;" container-fluid">
+				<h5> Option 2 </h5>
+				<input id="session-option-2" type="text" style="width:30%;" container-fluid">
+				<h5> Option 3 </h5>
+				<input id="session-option-3" type="text" style="width:30%;" container-fluid">
+				<h5> Option 4 </h5>
+				<input id="session-option-4" type="text" style="width:30%;" container-fluid">
+				<br>
+				<br>
+				<button id="continue-create-session" class="btn btn-primary">Continue</button>
+			</div>
+
+
+			<!-- Lobby -->
+			<div id="lobby-div">
+
+			</div>
+
+
+			<br>
+			<br>
+			<button id="sign-out" class="btn btn-link">
+				SIGN OUT
+			</button>
+		</center>
+
+		<script src="index.js"></script>
+		
+	</body>
+</html>
