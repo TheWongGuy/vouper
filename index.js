@@ -17,12 +17,14 @@ $(document).ready(function(){
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
 		$("#question-div").hide();
+		$("#results-div").hide();
 	}
 	if($("#join-session").is(":visible")){
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
 		$("#question-div").hide();
+		$("#results-div").hide();
 	}
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
@@ -453,5 +455,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
 		$("#question-div").hide();
+		$("#results-div").hide();
 	}
 });
