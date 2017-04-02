@@ -70,14 +70,13 @@ continueCreateSession.addEventListener("click", function(){
 
 	$("#head-lobby-div").show();
 	$("#create-session-div").hide();
-	$("#session-code").text(roomID);
+	joinHeadLobby(roomID);
 });
 
 continueJoinSession.addEventListener("click", function(){
-
 	var sessionCode = document.getElementById('session-code').value;
 	console.log("Called");
-	joinRoom(sessionCode);
+	joinGuestLobby(sessionCode);
 });
 
 
@@ -96,7 +95,7 @@ function createRoom(roomID, option1, option2, option3, option4, question, state,
   	});
 }
 
-function joinRoom(roomID){
+function joinGuestLobby(roomID){
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
 		mySnapshot = snapshot.val();
@@ -115,7 +114,24 @@ function joinRoom(roomID){
 	});
 }
 
-
+function joinHeadLobby(roomID){
+	var mySnapshot;
+	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+		console.log(mySnapshot);
+	}).then(function(){
+		if(mySnapshot == null){
+			$("#join-session-warning-label").text("Invalid Session Code");
+		}else{
+			$("#head-lobby-div").show();
+			$("#create-session-div").hide();
+			$("#session-code-label").text(roomID);
+			mySnapshot.users = mySnapshot.users + 1;
+			database.ref('/rooms/' + roomID).update(mySnapshot);
+			$("#head-user-count-label").text(mySnapshot.users);
+		}
+	});
+}
 
 function writeRoomData(roomID, option1, option2, option3, option4, question, state, users){
 	var obj = {
