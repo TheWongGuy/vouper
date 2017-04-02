@@ -57,6 +57,10 @@ function startVoting(roomID){
   	});
 }
 
+function results(){
+
+}
+
 function listenForStateChange(roomID){
 	var state = database.ref('/rooms/' + roomID + '/state');
 
@@ -66,6 +70,8 @@ function listenForStateChange(roomID){
 			$("#question-div").show();
 			$("#guest-lobby-div").hide();
 			$("#pageHeader").text("Questions");
+		}else if(currentState == 2){
+			$("#question-div").hide();
 		}
 
 	});
