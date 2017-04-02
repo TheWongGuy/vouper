@@ -4,6 +4,7 @@ var createSession = document.getElementById('create-session');
 var joinSession = document.getElementById('join-session');
 var continueCreateSession = document.getElementById('continue-create-session');
 var continueJoinSession = document.getElementById('continue-join-session');
+var start = document.getElementById('start');
 var database = firebase.database();
 
 
@@ -15,11 +16,13 @@ $(document).ready(function(){
 		$("#create-session-div").hide();
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
+		$("#question-div").hide();
 	}
 	if($("#join-session").is(":visible")){
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
+		$("#question-div").hide();
 	}
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
@@ -41,6 +44,12 @@ signOut.addEventListener("click", function(){
 		console.log(error);
 	});
 });
+
+start.addEventListener("click", function(){
+	//changes state, 
+	$("#head-lobby-div").hide();
+	$("#question-div").show();
+})
 
 createSession.addEventListener("click", function(){
 	$("#create-session").hide();
@@ -97,6 +106,7 @@ continueCreateSession.addEventListener("click", function(){
 
 continueJoinSession.addEventListener("click", function(){
 	var sessionCode = document.getElementById('session-code').value;
+
 	joinGuestLobby(sessionCode);
 });
 
@@ -157,6 +167,7 @@ function joinHeadLobby(roomID){
 	});
 }
 
+
 function leaveHeadLobby(roomID){
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
@@ -169,6 +180,7 @@ function leaveHeadLobby(roomID){
 		Cookies.get("lastRoomID", null);
 	});
 }
+
 
 function updateUserCountGuest(roomID, dbSnapshot){
 	var guestUserCount = database.ref('/rooms/' + roomID + '/users');
@@ -255,5 +267,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 		$("#guest-lobby-div").hide();
 		$("#head-lobby-div").hide();
 
+		$("#question-div").hide();
 	}
 });
