@@ -157,7 +157,7 @@ function joinHeadLobby(roomID){
 		mySnapshot = snapshot.val();
 	}).then(function(){
 		if(mySnapshot == null){
-			$("#join-session-warning-label").text("Invalid Session Code");
+
 		}else{
 			$("#head-lobby-div").show();
 			$("#create-session-div").hide();
