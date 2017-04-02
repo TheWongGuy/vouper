@@ -27,6 +27,7 @@ $(document).ready(function(){
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
 	}
+	
 });
 
 
@@ -38,6 +39,7 @@ signOut.addEventListener("click", function(){
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
 	}
+	
 	firebase.auth().signOut();
 	firebase.auth().currentUser.delete().then(function(){
 	}, function(error){
@@ -106,7 +108,6 @@ continueCreateSession.addEventListener("click", function(){
 
 continueJoinSession.addEventListener("click", function(){
 	var sessionCode = document.getElementById('session-code').value;
-
 	joinGuestLobby(sessionCode);
 });
 
@@ -128,6 +129,7 @@ function createRoom(roomID, option1, option2, option3, option4, question, state,
 }
 
 function joinGuestLobby(roomID){
+	console.log(roomID);
 	Cookies.set("lastRoomID", roomID);
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
@@ -149,6 +151,7 @@ function joinGuestLobby(roomID){
 
 
 function joinHeadLobby(roomID){
+	Cookies.set("lastRoomID", roomID);
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
 		mySnapshot = snapshot.val();
@@ -158,8 +161,8 @@ function joinHeadLobby(roomID){
 		}else{
 			$("#head-lobby-div").show();
 			$("#create-session-div").hide();
-			$("#session-code").text(roomID);
-			mySnapshot.users = mySnapshot.users;
+			$("#head-session-code-label").text(roomID);
+			mySnapshot.users = 1;
 			database.ref('/rooms/' + roomID).update(mySnapshot);
 			$("#head-user-count-label").text(mySnapshot.users);
 			updateUserCountHead(roomID);
@@ -168,18 +171,7 @@ function joinHeadLobby(roomID){
 }
 
 
-function leaveHeadLobby(roomID){
-	var mySnapshot;
-	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
-		mySnapshot = snapshot.val();
-	}).then(function(){
-		mySnapshot.users = mySnapshot.users - 1;
-		$("#head-lobby-div").hide();			
-		database.ref('/rooms/' + roomID).update(mySnapshot);
-		
-		Cookies.get("lastRoomID", null);
-	});
-}
+
 
 
 function updateUserCountGuest(roomID, dbSnapshot){
@@ -222,10 +214,9 @@ function leaveGuestLobby(roomID){
 		mySnapshot = snapshot.val();
 	}).then(function(){
 		mySnapshot.users = mySnapshot.users - 1;
-		$("#guest-lobby-div").hide();			
 		database.ref('/rooms/' + roomID).update(mySnapshot);
-		
-		Cookies.get("lastRoomID", null);
+		$("#guest-lobby-div").hide();			
+		Cookies.set("lastRoomID", null);
 	});
 }
 
