@@ -256,6 +256,7 @@ function listenForStateChange(roomID){
 		}else if(currentState == 2){
 			$("#question-div").hide();
 			$("#results-div").show();
+			$("#guest-lobby-div").hide();
 
 
 
