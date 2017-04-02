@@ -159,7 +159,7 @@ function joinHeadLobby(roomID){
 			$("#head-lobby-div").show();
 			$("#create-session-div").hide();
 			$("#session-code").text(roomID);
-			mySnapshot.users = mySnapshot.users + 1;
+			mySnapshot.users = mySnapshot.users;
 			database.ref('/rooms/' + roomID).update(mySnapshot);
 			$("#head-user-count-label").text(mySnapshot.users);
 			updateUserCountHead(roomID);
