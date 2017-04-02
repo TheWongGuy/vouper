@@ -14,10 +14,12 @@ $(document).ready(function(){
 	if($("#create-session").is(":visible")){
 		$("#create-session-div").hide();
 		$("#guest-lobby-div").hide();
+		$("#head-lobby-div").hide();
 	}
 	if($("#join-session").is(":visible")){
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
+		$("#head-lobby-div").hide();
 	}
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
@@ -72,7 +74,10 @@ continueCreateSession.addEventListener("click", function(){
 	var roomID = randomString(4);
 	
 	createRoom(roomID, option1, option2, option3, option4, question, 0, 1);
-	
+
+	$("#head-lobby-div").show();
+	$("#create-session-div").hide();
+	$("#session-code").text(roomID);
 });
 
 continueJoinSession.addEventListener("click", function(){
@@ -183,6 +188,10 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 		$("#create-session-div").hide();
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
+<<<<<<< HEAD
 		
+=======
+		$("#head-lobby-div").hide();
+>>>>>>> 7c5127921fc2f10fd18e8413d49923d43cae0397
 	}
 });
