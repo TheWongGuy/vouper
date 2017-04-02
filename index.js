@@ -7,7 +7,10 @@ var continueJoinSession = document.getElementById('continue-join-session');
 var startSession = document.getElementById('start-session');
 var database = firebase.database();
 var answer1 = document.getElementById('answer1');
-
+var answer2 = document.getElementById('answer2');
+var answer3 = document.getElementById('answer3');
+var answer4 = document.getElementById('answer4');
+var sum;
 
 //ON PAGE LOAD
 $(document).ready(function(){
@@ -18,6 +21,7 @@ $(document).ready(function(){
 		$("#head-lobby-div").hide();
 		$("#question-div").hide();
 		$("#results-div").hide();
+		$("#sign-out").show();
 	}
 	if($("#join-session").is(":visible")){
 		$("#join-session-div").hide();
@@ -25,10 +29,13 @@ $(document).ready(function(){
 		$("#head-lobby-div").hide();
 		$("#question-div").hide();
 		$("#results-div").hide();
+		$("#sign-out").show();
 	}
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
 	}
+
+	sum = 1;
 	
 });
 
@@ -39,13 +46,33 @@ answer1.addEventListener("click", function(){
 
 		var arr = $.map(mySnapshot, function(el) { return el });
 		arr[0] = arr[0] + 1;
-		var result = JSON.parse(JSON.stringify(arr));
+
+		var roption1 = $("#answer1").text();
+		var roption2 = $("#answer2").text();
+		var roption3 = $("#answer3").text();
+		var roption4 = $("#answer4").text();
+
+		
+
+		var obj = {
+
+				[roption1]: arr[0],
+				[roption2]: arr[1],
+				[roption3]: arr[2],
+				[roption4]: arr[3]
+		
+		}
+		var result = JSON.parse(JSON.stringify(obj));
 		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
 	});
 
 	results();
 
-	$("#questions").prop("disabled", true);
+	answer1.disabled = true;
+	answer2.disabled = true;
+	answer3.disabled = true;
+	answer4.disabled = true;
+	listenForStateChange(Cookies.get("lastRoomID"));
 });
 
 answer2.addEventListener("click", function(){
@@ -55,12 +82,32 @@ answer2.addEventListener("click", function(){
 
 		var arr = $.map(mySnapshot, function(el) { return el });
 		arr[1] = arr[1] + 1;
-		var result = JSON.parse(JSON.stringify(arr));
+		var roption1 = $("#answer1").text();
+		var roption2 = $("#answer2").text();
+		var roption3 = $("#answer3").text();
+		var roption4 = $("#answer4").text();
+
+		
+
+
+		var obj = {
+	
+				[roption1]: arr[0],
+				[roption2]: arr[1],
+				[roption3]: arr[2],
+				[roption4]: arr[3]
+		
+		}
+		var result = JSON.parse(JSON.stringify(obj));
 		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
 	});
 
 	results();
-	$("#question-div").prop("disabled", true);
+	answer1.disabled = true;
+	answer2.disabled = true;
+	answer3.disabled = true;
+	answer4.disabled = true;
+	listenForStateChange(Cookies.get("lastRoomID"));
 });
 answer3.addEventListener("click", function(){
 
@@ -69,12 +116,32 @@ answer3.addEventListener("click", function(){
 
 		var arr = $.map(mySnapshot, function(el) { return el });
 		arr[2] = arr[2] + 1;
-		var result = JSON.parse(JSON.stringify(arr));
+		var roption1 = $("#answer1").text();
+		var roption2 = $("#answer2").text();
+		var roption3 = $("#answer3").text();
+		var roption4 = $("#answer4").text();
+
+		
+
+
+		var obj = {
+			
+				[roption1]: arr[0],
+				[roption2]: arr[1],
+				[roption3]: arr[2],
+				[roption4]: arr[3]
+		
+		}
+		var result = JSON.parse(JSON.stringify(obj));
 		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
 	});
 
 	results();
-	$("#question-div").prop("disabled", true);
+	answer1.disabled = true;
+	answer2.disabled = true;
+	answer3.disabled = true;
+	answer4.disabled = true;
+	listenForStateChange(Cookies.get("lastRoomID"));
 });
 answer4.addEventListener("click", function(){
 
@@ -83,11 +150,31 @@ answer4.addEventListener("click", function(){
 
 		var arr = $.map(mySnapshot, function(el) { return el });
 		arr[3] = arr[3] + 1;
-		var result = JSON.parse(JSON.stringify(arr));
+		var roption1 = $("#answer1").text();
+		var roption2 = $("#answer2").text();
+		var roption3 = $("#answer3").text();
+		var roption4 = $("#answer4").text();
+
+		
+
+
+		var obj = {
+			
+				[roption1]: arr[0],
+				[roption2]: arr[1],
+				[roption3]: arr[2],
+				[roption4]: arr[3]
+		
+		}
+		var result = JSON.parse(JSON.stringify(obj));
 		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
 	});
 	results();
-	$("#question-div").prop("disabled", true);
+	answer1.disabled = true;
+	answer2.disabled = true;
+	answer3.disabled = true;
+	answer4.disabled = true;
+	listenForStateChange(Cookies.get("lastRoomID"));
 });
 signIn.addEventListener("click", function(){
 	firebase.auth().signInAnonymously();
@@ -122,23 +209,26 @@ function results(){
 	database.ref('/rooms/'+Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
 		mySnapshot = snapshot.val();
 		var keys = [];
-		var sum = 1;
 		for(var i in mySnapshot){
 			var val = mySnapshot[i];
 
 			sum = sum + val;
+
+
 		}
 		
 		database.ref('/rooms/'+Cookies.get("lastRoomID") + '/users').once('value', function(snapshot){
 			superSnap = snapshot.val();
+			if(sum >= superSnap){
+				var mySnapshot;
+			  	database.ref('/rooms/').child(Cookies.get("lastRoomID")).once('value', function(snapshot) {
+			    	mySnapshot = snapshot.val();
+			  	}).then(function(){
 
-			if(sum > superSnap){
-				database.ref('/rooms/').child(Cookies.get('lastRoomID')).once('value', function(snapshot) {
-    				mySnapshot = snapshot.val();
-  				}).then(function(){
-  					mySnapshot.state = 1;
-  				database.ref('/rooms/' + Cookies.get('lastRoomID')).update(mySnapshot);
-  				});
+			  		mySnapshot.state = 2;
+
+			  		database.ref('/rooms/' + Cookies.get("lastRoomID")).update(mySnapshot);
+			  	});
 			}
 		});
 		
@@ -159,7 +249,7 @@ function listenForStateChange(roomID){
 				mySnapshot = snapshot.val();
 				$("#pageHeader").text(mySnapshot);
 			});
-			$("#question-label").text("")
+			$("#question-label").text("");
 			if(Cookies.get("lastRoomID") != null){
 				getChoices(Cookies.get("lastRoomID"));
 			}
@@ -167,28 +257,45 @@ function listenForStateChange(roomID){
 			$("#question-div").hide();
 			$("#results-div").show();
 
-			database.ref('/rooms/'+Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
-		mySnapshot = snapshot.val();
-		var keys = [];
-		var vals = [];
-		for(var i in mySnapshot){
-			var key = i;
-			keys.push(key);
-			var val = mySnapshot[i];
-			vals.push(val);
-		}
+
+
+			var keys = [];
+			var vals = [];
+
+			keys[0] = "Mexican";
+			keys[1] = "Pizza";
+			keys[2] = "Cheetos";
+			keys[3] = "Fibratos"
+
+			vals[0] = 2;
+			vals[1] = 3;
+			vals[2] = 4;
+			vals[3] = 5;
+
+			
+
+			$("#question-1").text($("#answer1").text());
+			$("#question-2").text($("#answer2").text());
+			$("#question-3").text($("#answer3").text());
+			$("#question-4").text($("#answer4").text());
+
 		
-	});
+			database.ref('/rooms/'+roomID).child('options').once('value', function(snapshot){
+				mySnapshot = snapshot.val();
+				var keys = [];
+				var vals = [];
+				for(var i in mySnapshot){
+					var val = mySnapshot[i];
+					vals.push(val);
+				}
 
-			$("#question1").text = keys[0];
-			$("#question2").text = keys[1];
-			$("#question3").text = keys[2];
-			$("#question4").text = keys[3];
+				$("#result1").text(vals[0]);
+				$("#result2").text(vals[1]);
+				$("#result3").text(vals[2]);
+				$("#result4").text(vals[3]);
 
-			$("#result1").text = vals[0];
-			$("#result2").text = vals[1];
-			$("#result3").text = vals[2];
-			$("#result4").text = vals[3];
+
+			});
 		}
 
 	});
@@ -367,9 +474,7 @@ function getChoices(roomID){
 	});
 }
 
-function onClick(){
 
-}
 
 function updateUserCountGuest(roomID, dbSnapshot){
 	var guestUserCount = database.ref('/rooms/' + roomID + '/users');
