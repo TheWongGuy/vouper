@@ -254,31 +254,36 @@ function listenForStateChange(roomID){
 				getChoices(Cookies.get("lastRoomID"));
 			}
 		}else if(currentState == 2){
+			$("#pageHeader").text("Results");
 			$("#question-div").hide();
 			$("#results-div").show();
 			$("#guest-lobby-div").hide();
+			var question = database.ref('/rooms/' + roomID + '/question');
+			question.once('value', function(snapshot){
+				var thisQuestion = snapshot.val();
+				$("#results-question-label").text(thisQuestion)
+			});
+			
+			var answers = database.ref('/rooms/' + roomID + '/options');
+			answers.once('value', function(snapshot){
+				answers = snapshot.val();
+				ans = [];
+				var i = 0;
+				for(g in answers){
+					ans[i] = g;
+					i++;
+				}
+				
+		
 
 
-
-			var keys = [];
-			var vals = [];
-
-			keys[0] = "Mexican";
-			keys[1] = "Pizza";
-			keys[2] = "Cheetos";
-			keys[3] = "Fibratos"
-
-			vals[0] = 2;
-			vals[1] = 3;
-			vals[2] = 4;
-			vals[3] = 5;
-
+			});
 			
 
-			$("#question-1").text($("#answer1").text());
-			$("#question-2").text($("#answer2").text());
-			$("#question-3").text($("#answer3").text());
-			$("#question-4").text($("#answer4").text());
+			$("#question-1").text(ans[0]);
+			$("#question-2").text(ans[1]);
+			$("#question-3").text(ans[2]);
+			$("#question-4").text(ans[3]);
 
 		
 			database.ref('/rooms/'+roomID).child('options').once('value', function(snapshot){
