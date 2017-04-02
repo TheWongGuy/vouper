@@ -6,12 +6,11 @@
 	    src="https://code.jquery.com/jquery-3.2.1.min.js"
 	    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	    crossorigin="anonymous"></script>
+
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+		<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
@@ -74,7 +73,7 @@
 				</div>
 				<br>
 				<br>
-				<button id="start" class="btn btn-primary">START</button>
+				<button id="start-session" class="btn btn-primary">START</button>
 			</div>
 
 
@@ -90,16 +89,20 @@
 				<h3 id='session-code-label'></h3>
 			</div>
 
+			
 
 			<!-- Join -->
 			<div id="join-session-div">
 				<h3>Enter Code</h3>
 				<input id="session-code" type="text" style="width:80%;" container-fluid">
+				<br>
+				<br>
 				<button id="continue-join-session" class="btn btn-primary">Join</button>
 				<br>
 				<h5 id="join-session-warning-label"></h5>
 			</div>
 
+			<!-- Questions -->
 			<div id="question-div">
 				<h3>Question</h3>
 				<div id="questions">
@@ -111,6 +114,13 @@
 						<button id="bottom-left" class="btn btn-primary"></button>
 						<button id="bottom-right" class="btn btn-primary"></button>
 					</div>
+				<div id="top-row">
+					<button id="top-left" class="btn btn-primary"></button>
+					<button id="top-right" class="btn btn-primary"></button>
+				</div>
+				<div id="bottom-row">
+					<button id="bottom-left" class="btn btn-primary"></button>
+					<button id="bottom-right" class="btn btn-primary"></button>
 				</div>
 			</div>
 			<br>
