@@ -6,7 +6,7 @@ var continueCreateSession = document.getElementById('continue-create-session');
 var continueJoinSession = document.getElementById('continue-join-session');
 var startSession = document.getElementById('start-session');
 var database = firebase.database();
-
+var answer1 = document.getElementById('answer1');
 
 
 //ON PAGE LOAD
@@ -30,7 +30,63 @@ $(document).ready(function(){
 	
 });
 
+answer1.addEventListener("click", function(){
 
+	database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+
+		var arr = $.map(mySnapshot, function(el) { return el });
+		arr[0] = arr[0] + 1;
+		var result = JSON.parse(JSON.stringify(arr));
+		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
+	});
+
+	results();
+
+	$("#questions").prop("disabled", true);
+});
+
+answer2.addEventListener("click", function(){
+
+	database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+
+		var arr = $.map(mySnapshot, function(el) { return el });
+		arr[1] = arr[1] + 1;
+		var result = JSON.parse(JSON.stringify(arr));
+		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
+	});
+
+	results();
+	$("#question-div").prop("disabled", true);
+});
+answer3.addEventListener("click", function(){
+
+	database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+
+		var arr = $.map(mySnapshot, function(el) { return el });
+		arr[2] = arr[2] + 1;
+		var result = JSON.parse(JSON.stringify(arr));
+		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
+	});
+
+	results();
+	$("#question-div").prop("disabled", true);
+});
+answer4.addEventListener("click", function(){
+
+	database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+
+		var arr = $.map(mySnapshot, function(el) { return el });
+		arr[3] = arr[3] + 1;
+		var result = JSON.parse(JSON.stringify(arr));
+		database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').set(result);
+	});
+	results();
+	$("#question-div").prop("disabled", true);
+});
 signIn.addEventListener("click", function(){
 	firebase.auth().signInAnonymously();
 });
@@ -57,8 +113,36 @@ function startVoting(roomID){
   	});
 }
 
+
+
 function results(){
 
+	database.ref('/rooms/'+Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+		var keys = [];
+		var sum = 1;
+		for(var i in mySnapshot){
+			var val = mySnapshot[i];
+
+			sum = sum + val;
+		}
+		
+		database.ref('/rooms/'+Cookies.get("lastRoomID") + '/users').once('value', function(snapshot){
+			superSnap = snapshot.val();
+
+			if(sum > superSnap){
+				database.ref('/rooms/').child(Cookies.get('lastRoomID')).once('value', function(snapshot) {
+    				mySnapshot = snapshot.val();
+  				}).then(function(){
+  					mySnapshot.state = 1;
+  				database.ref('/rooms/' + Cookies.get('lastRoomID')).update(mySnapshot);
+  				});
+			}
+		});
+		
+
+	});
+	
 }
 
 function listenForStateChange(roomID){
@@ -69,9 +153,40 @@ function listenForStateChange(roomID){
 		if(currentState == 1){
 			$("#question-div").show();
 			$("#guest-lobby-div").hide();
-			$("#pageHeader").text("Questions");
+			database.ref('/rooms/' + roomID).child('question').once('value', function(snapshot){
+				mySnapshot = snapshot.val();
+				$("#pageHeader").text(mySnapshot);
+			});
+			$("#question-label").text("")
+			if(Cookies.get("lastRoomID") != null){
+				getChoices(Cookies.get("lastRoomID"));
+			}
 		}else if(currentState == 2){
 			$("#question-div").hide();
+			$("#results-div").show();
+
+			database.ref('/rooms/'+Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+		var keys = [];
+		var vals = [];
+		for(var i in mySnapshot){
+			var key = i;
+			keys.push(key);
+			var val = mySnapshot[i];
+			vals.push(val);
+		}
+		
+	});
+
+			$("#question1").text = keys[0];
+			$("#question2").text = keys[1];
+			$("#question3").text = keys[2];
+			$("#question4").text = keys[3];
+
+			$("#result1").text = vals[0];
+			$("#result2").text = vals[1];
+			$("#result3").text = vals[2];
+			$("#result4").text = vals[3];
 		}
 
 	});
@@ -86,7 +201,11 @@ startSession.addEventListener("click", function(){
 	if(Cookies.get("lastRoomID") != null){
 		getChoices(Cookies.get("lastRoomID"));
 	}
-	$("#pageHeader").text("Questions");
+	database.ref('/rooms/' + Cookies.get("lastRoomID")).child('question').once('value', function(snapshot){
+		mySnapshot = snapshot.val();
+		$("#pageHeader").text(mySnapshot);
+	});
+	$("#question-label").text("")
 
 })
 
@@ -167,7 +286,7 @@ function createRoom(roomID, option1, option2, option3, option4, question, state,
 }
 
 function joinGuestLobby(roomID){
-	console.log(roomID);
+
 	Cookies.set("lastRoomID", roomID);
 	var mySnapshot;
 	database.ref('/rooms/').child(roomID).once('value', function(snapshot){
@@ -220,29 +339,29 @@ function getChoices(roomID){
 			keys.push(key);
 		}
 
-		$("#top-left").text(keys[0]);
-		$("#top-right").text(keys[1]);
-		$("#bottom-left").text(keys[2]);
-		$("#bottom-right").text(keys[3]);
+		$("#answer1").text(keys[0]);
+		$("#answer2").text(keys[1]);
+		$("#answer3").text(keys[2]);
+		$("#answer4").text(keys[3]);
 
 
-		/*
+		
 		if(keys[0] == "NOQUESTION"){
-			$("#top-left").text("");
-			$("#top-left").prop("disabled", true);
+			$("#answer1").text("");
+
 		}
 		if(keys[1] == "NOQUESTION"){
-			$("#top-right").text("");
-			$("#top-right").prop("disabled", true);
+			$("#answer2").text("");
+
 		}
 		if(keys[2] == "NOQUESTION"){
-			$("#bottom-left").text("");
-			$("#bottom-left").prop("disabled", true);
+			$("#answer3").text("");
+
 		}
 		if(keys[3] == "NOQUESTION"){
-			$("#bottom-right").text("");
-			$("#bottom-right").prop("disabled", true);
-		} */
+			$("#answer4").text("");
+	
+		} 
 	});
 }
 
