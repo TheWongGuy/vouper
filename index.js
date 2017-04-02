@@ -12,10 +12,12 @@ $(document).ready(function(){
 	if($("#create-session").is(":visible")){
 		$("#create-session-div").hide();
 		$("#guest-lobby-div").hide();
+		$("#head-lobby-div").hide();
 	}
 	if($("#join-session").is(":visible")){
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
+		$("#head-lobby-div").hide();
 	}
 });
 
@@ -65,7 +67,10 @@ continueCreateSession.addEventListener("click", function(){
 	roomID = 'FAFA';
 	
 	createRoom(roomID, option1, option2, option3, option4, question, 0, 1);
-	
+
+	$("#head-lobby-div").show();
+	$("#create-session-div").hide();
+	$("#session-code").text(roomID);
 });
 
 continueJoinSession.addEventListener("click", function(){
@@ -133,5 +138,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 		$("#create-session-div").hide();
 		$("#join-session-div").hide();
 		$("#guest-lobby-div").hide();
+		$("#head-lobby-div").hide();
 	}
 });
