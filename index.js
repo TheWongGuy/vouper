@@ -33,10 +33,10 @@ $(document).ready(function(){
 	}
 	if(Cookies.get("lastRoomID") != null){
 		leaveGuestLobby(Cookies.get("lastRoomID"));
-		answer1.disabled = true;
-		answer2.disabled = true;
-		answer3.disabled = true;
-		answer4.disabled = true;
+		answer1.disabled = false;
+		answer2.disabled = false;
+		answer3.disabled = false;
+		answer4.disabled = false;
 	}
 
 	sum = 1;
