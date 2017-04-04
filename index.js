@@ -43,6 +43,14 @@ $(document).ready(function(){
 	
 });
 
+// allows user to access next text field on page by pressing enter
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+    	var index = $('input').index(document.activeElement) + 1;
+    	$('input').eq(index).focus();
+    }
+});
+
 answer1.addEventListener("click", function(){
 
 	database.ref('/rooms/' + Cookies.get("lastRoomID")).child('options').once('value', function(snapshot){
