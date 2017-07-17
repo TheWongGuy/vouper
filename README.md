@@ -1,6 +1,7 @@
 # vouper
 
-> Vouper rewrite in Vue
+
+> Anonymous, Group, Voting
 
 ## Build Setup
 
@@ -18,4 +19,6 @@ npm run build
 npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Vouper was originally created as an entry into MasseyHacks 3. Orignally written using Bulma, Javascript and JQuery, the Dev trajectory has since shifted and development is being carried out with vue.js and firebase...
+
+http://www.vouper.ca < The website is currently down due to server costs but will be back up soon.
