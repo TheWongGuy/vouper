@@ -1,0 +1,106 @@
+<template>
+  <div id="app">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="http://www.vouper.ca">
+          VOUPER LOGO
+        </a>
+        <div class="navbar-burger burger" data-target="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+          <a class="navbar-item is-hidden-desktop">
+            Log In
+          </a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a id="twitter"
+                  class="button is-info is-outlined"
+                  data-social-network="Twitter"
+                  data-social-action="tweet"
+                  data-social-target="http://www.vouper.ca"
+                  target="_blank"
+                  href="https://twitter.com/intent/tweet?text=I just made a voup!&url=http://www.vouper.ca">
+                  <span class="icon">
+                    <i class="fa fa-twitter"></i>
+                  </span>
+                  <span>Tweet</span>
+                </a>
+              </p>
+              <p class="control">
+                <a class="button is-primary is-hidden-touch">
+                  Log In
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="section">
+      <router-view></router-view>
+    </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p><span class="icon"><i class="fa fa-code"></i></span> with <span class="icon"><i class="fa fa-heart" style="color:red"></i></span> by <a href="http://www.adamwong.me">Adam Wong</a></p>
+          <p>
+            <a class="icon" href="https://github.com/TheWongGuy/vouper/">
+              <i class="fa fa-github"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</template>
+
+<script>
+
+
+
+export default {
+  name: 'app',
+  data(){
+    return{
+
+    }
+  },
+
+  created: function(){
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get all "navbar-burger" elements
+      var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      // Check if there are any nav burgers
+      if ($navbarBurgers.length > 0) {
+        // Add a click event on each of them
+        $navbarBurgers.forEach(function ($el) {
+          $el.addEventListener('click', () => {
+            // Get the target from the "data-target" attribute
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
+            // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+            $el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+          });
+        });
+      }
+
+    });
+  }
+}
+</script>
+
+<style lang="css">
+    @import '../node_modules/bulma/css/bulma.css';
+    @import '../node_modules/font-awesome/css/font-awesome.min.css';
+</style>
