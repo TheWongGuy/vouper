@@ -1,68 +1,121 @@
 <html>
   <head>
     <title>Vouper</title>
-      <link rel="stylesheet" href='/node_modules/bulma/css/bulma.css'>
-      <link rel="stylesheet" href='/node_modules/font-awesome/css/font-awesome.min.css'>
+      <!-- Firebase Dependencies -->
+  		<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+  		<script>
+  		  var config = {
+  		    apiKey: "AIzaSyCsz-0LGyRw-wLsjFj4HxdKyWyNaJ87OCw",
+  		    authDomain: "vouper-e8a5a.firebaseapp.com",
+  		    databaseURL: "https://vouper-e8a5a.firebaseio.com",
+  		    projectId: "vouper-e8a5a",
+  		    storageBucket: "vouper-e8a5a.appspot.com",
+  		    messagingSenderId: "252718783964"
+  		  };
+  		  firebase.initializeApp(config);
+  		</script>
+      <link rel="stylesheet" href='/modules/bulma/css/bulma.css'>
+      <link rel="stylesheet" href='/modules/font-awesome/css/font-awesome.min.css'>
+      <script type="text/javascript" src='/modules/jquery/dist/jquery.min.js'></script>
+      <script type="text/javascript" src='/modules/knockout/build/output/knockout-latest.js'></script>
+      <script type="text/javascript" src='/source/viewLoad.js'></script>
+      <script type="text/javascript" src='/source/landing/landing.js'></script>
+      <script type="text/javascript" src='/modules/countup/countUp.js'></script>
   </head>
-  <div id="app">
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="http://www.vouper.ca">
-            VOUPER LOGO
-        </a>
-        <div class="navbar-burger burger" data-target="navMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+  <body>
+    <div id="app">
+      <div id="navbar">
+        <nav class="navbar">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="http://www.vouper.ca">
+                VOUPER LOGO
+            </a>
+            <div class="navbar-burger burger" data-target="navMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="navbar-menu" id="navMenu">
+            <div class="navbar-start">
+              <a class="navbar-item is-hidden-desktop">
+                Log In
+              </a>
+            </div>
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="field is-grouped">
+                  <p class="control">
+                    <a id="twitter"
+                      class="button is-info is-outlined"
+                      data-social-network="Twitter"
+                      data-social-action="tweet"
+                      data-social-target="http://www.vouper.ca"
+                      target="_blank"
+                      href="https://twitter.com/intent/tweet?text=I just made a voup!&url=http://www.vouper.ca">
+                      <span class="icon">
+                        <i class="fa fa-twitter"></i>
+                      </span>
+                      <span>Tweet</span>
+                    </a>
+                  </p>
+                  <p class="control">
+                    <a class="button is-primary is-hidden-touch">
+                      Log In
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
       </div>
-      <div class="navbar-menu" id="navMenu">
-        <div class="navbar-start">
-          <a class="navbar-item is-hidden-desktop">
-            Log In
-          </a>
+      <div id="app-wrapper">
+        <div id="landing">
+              <section class="section">
+          			       <section class="hero has-text-centered">
+          				<div class="hero-body">
+              				<div class="container">
+                					<h1 class="title is-1 is-spaced">
+                 						Vouper
+               					</h1>
+                					<h2 class="subtitle">
+                  					Free, <strong> Anonymous, </strong> Real Time
+                					</h2>
+              				</div>
+            				</div>
+
+            				<nav class="level">
+          				  <div class="level-item has-text-centered">
+          				    <div class="box">
+          				      <p class="heading">Total Voups</p>
+          				      <p id="voup-count" class="title">0</p>
+          				    </div>
+          				  </div>
+          				</nav>
+          			</section>
+          			<section class="hero has-text-centered">
+          				<div class="hero-body">
+
+          				</div>
+          			</section>
+
+
+            </section>
         </div>
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <p class="control">
-                <a id="twitter"
-                  class="button is-info is-outlined"
-                  data-social-network="Twitter"
-                  data-social-action="tweet"
-                  data-social-target="http://www.vouper.ca"
-                  target="_blank"
-                  href="https://twitter.com/intent/tweet?text=I just made a voup!&url=http://www.vouper.ca">
-                  <span class="icon">
-                    <i class="fa fa-twitter"></i>
-                  </span>
-                  <span>Tweet</span>
-                </a>
-              </p>
-              <p class="control">
-                <a class="button is-primary is-hidden-touch">
-                  Log In
+        <footer class="footer">
+          <div class="container">
+            <div class="content has-text-centered">
+              <p><span class="icon"><i class="fa fa-code"></i></span> with <span class="icon"><i class="fa fa-heart" style="color:red"></i></span> by <a href="http://www.adamwong.me">Adam Wong</a></p>
+              <p>
+                  <a class="icon" href="https://github.com/TheWongGuy/vouper/">
+                  <i class="fa fa-github"></i>
                 </a>
               </p>
             </div>
           </div>
-        </div>
+        </footer>
       </div>
-    </nav>
-    <section class="section">
-      <router-view></router-view>
-    </section>
-    <footer class="footer">
-      <div class="container">
-        <div class="content has-text-centered">
-          <p><span class="icon"><i class="fa fa-code"></i></span> with <span class="icon"><i class="fa fa-heart" style="color:red"></i></span> by <a href="http://www.adamwong.me">Adam Wong</a></p>
-          <p>
-              <a class="icon" href="https://github.com/TheWongGuy/vouper/">
-              <i class="fa fa-github"></i>
-            </a>
-          </p>
-        </div>
-      </div>
-    </footer>
-  </div>
+    </div>
+  </body>
 </html>

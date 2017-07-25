@@ -5,9 +5,10 @@
   "main": "server.js",
   "dependencies": {
     "bulma": "^0.4.4",
+    "countup": "^1.8.2",
+    "express": "^4.15.3",
     "font-awesome": "^4.7.0",
-    "knockout": "^3.4.2",
-    "material-components-web": "^0.16.0"
+    "knockout": "^3.4.2"
   },
   "devDependencies": {},
   "scripts": {
