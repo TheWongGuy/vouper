@@ -1,26 +1,31 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vouper</title>
+      <script type="text/javascript" src='/modules/jquery/dist/jquery.min.js'></script>
       <!-- Firebase Dependencies -->
   		<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
-  		<script>
-  		  var config = {
-  		    apiKey: "AIzaSyCsz-0LGyRw-wLsjFj4HxdKyWyNaJ87OCw",
-  		    authDomain: "vouper-e8a5a.firebaseapp.com",
-  		    databaseURL: "https://vouper-e8a5a.firebaseio.com",
-  		    projectId: "vouper-e8a5a",
-  		    storageBucket: "vouper-e8a5a.appspot.com",
-  		    messagingSenderId: "252718783964"
-  		  };
-  		  firebase.initializeApp(config);
-  		</script>
       <link rel="stylesheet" href='/modules/bulma/css/bulma.css'>
       <link rel="stylesheet" href='/modules/font-awesome/css/font-awesome.min.css'>
-      <script type="text/javascript" src='/modules/jquery/dist/jquery.min.js'></script>
+      <style>
+        .hidden {
+          display: none;
+        }
+        .wrapper {
+          min-height: 100%;
+          margin-bottom: -200px;
+        }
+        .push {
+          height: 130px;
+        }
+      </style>
+      <script type="text/javascript" src="/source/firebasesetup.js"></script>
       <script type="text/javascript" src='/modules/knockout/build/output/knockout-latest.js'></script>
       <script type="text/javascript" src='/source/loadview.js'></script>
       <script type="text/javascript" src='/source/landing/landing.js'></script>
       <script type="text/javascript" src='/modules/countup/countUp.js'></script>
+      <script type="text/javascript" src='/source/hamburger.js'></script>
+      <script type="text/javascript" src='/source/ensureauth.js'></script>
   </head>
   <body>
     <div id="app">
@@ -38,7 +43,7 @@
           </div>
           <div class="navbar-menu" id="navMenu">
             <div class="navbar-start">
-              <a class="navbar-item is-hidden-desktop">
+              <a class="navbar-item is-hidden-desktop loginbutton">
                 Log In
               </a>
             </div>
@@ -60,7 +65,7 @@
                     </a>
                   </p>
                   <p class="control">
-                    <a class="button is-primary is-hidden-touch">
+                    <a class="button is-primary is-hidden-touch loginbutton">
                       Log In
                     </a>
                   </p>
@@ -70,10 +75,10 @@
           </div>
         </nav>
       </div>
-      <div id="app-wrapper">
+      <div id="app-wrapper" class="hidden wrapper">
         <div id="landing">
               <section class="section">
-          			       <section class="hero has-text-centered">
+          			<section class="hero has-text-centered">
           				<div class="hero-body">
               				<div class="container">
                 					<h1 class="title is-1 is-spaced">
@@ -84,7 +89,6 @@
                 					</h2>
               				</div>
             				</div>
-
             				<nav class="level">
           				  <div class="level-item has-text-centered">
           				    <div class="box">
@@ -99,23 +103,23 @@
 
           				</div>
           			</section>
-
-
             </section>
+
         </div>
-        <footer class="footer">
-          <div class="container">
-            <div class="content has-text-centered">
-              <p><span class="icon"><i class="fa fa-code"></i></span> with <span class="icon"><i class="fa fa-heart" style="color:red"></i></span> by <a href="http://www.adamwong.me">Adam Wong</a></p>
-              <p>
-                  <a class="icon" href="https://github.com/TheWongGuy/vouper/">
-                  <i class="fa fa-github"></i>
-                </a>
-              </p>
-            </div>
-          </div>
-        </footer>
+        <div class="push"></div>
       </div>
+      <footer class="footer">
+        <div class="container">
+          <div class="content has-text-centered">
+            <p><span class="icon"><i class="fa fa-code"></i></span> with <span class="icon"><i class="fa fa-heart" style="color:red"></i></span> by <a href="http://www.adamwong.me">Adam Wong</a></p>
+            <p>
+                <a class="icon" href="https://github.com/TheWongGuy/vouper/">
+                <i class="fa fa-github"></i>
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
