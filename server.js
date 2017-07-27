@@ -11,6 +11,7 @@ var port = process.env.PORT || 8080
 server.use('/source', express.static(path.join(__dirname, 'src')));
 server.use('/modules', express.static(path.join(__dirname, 'node_modules')));
 server.use('/router', express.static(path.join(__dirname, 'router')));
+server.use('/fonts', express.static(path.join(__dirname, 'assets/fonts')));
 //API Routes
 server.use('/', router.router);
 

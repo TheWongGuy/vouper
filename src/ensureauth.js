@@ -31,3 +31,14 @@ var authenticated = function(user){
     return true;
   }
 }
+
+var signOut = function(){
+  firebase.auth().signOut();
+}
+
+function signIn(){
+	firebase.auth().signInAnonymously()
+	 .catch(function(error) {
+		 console.log(error);
+	 });
+}

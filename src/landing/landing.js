@@ -1,7 +1,6 @@
 $( document ).ready(function() {
-	
-	$('.loginbutton').click(signIn);
 	loadview('slow');
+	$('.loginbutton').click(signIn);
 	updateVoupCount();
 });
 
@@ -19,11 +18,4 @@ function updateVoupCount(){
 		var voupCount = new CountUp("voup-count", 0, count, 0, 5, options);
 		voupCount.start();
 	});
-}
-
-function signIn(){
-	firebase.auth().signInAnonymously()
-	 .catch(function(error) {
-		 console.log(error);
-	 });
 }
