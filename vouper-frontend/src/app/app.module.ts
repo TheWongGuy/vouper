@@ -1,16 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { RoomCreateComponent } from './rooms/room-create/room-create.component';
+
+// Custom
+import { RoomCreateModule } from './rooms/room-create/room-create.module';
+
+// Material
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RoomCreateComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+
+    // Material
+    MatCardModule,
+
+    // Custom
+    RoomCreateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
