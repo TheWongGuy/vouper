@@ -5,7 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+
 import { NavbarModule } from './navbar/navbar.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,11 @@ import { NavbarModule } from './navbar/navbar.module';
     AppRoutingModule,
     BrowserAnimationsModule,
 
-    NavbarModule
+    AngularFireModule.initializeApp(environment.firebaseConfig, 'vouper-web'),
+    AngularFireAuthModule,
+
+    NavbarModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

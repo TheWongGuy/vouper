@@ -1,0 +1,22 @@
+<div class="container">
+  <mat-card class="signup-form">
+    <form class="full-width" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="signupForm.get('email').hasError('email') && !signupForm.get('email').hasError('required')">
+          Please enter a valid email</mat-error>
+        <mat-error *ngIf="signupForm.get('email').hasError('required')">Email is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Username" formControlName="username">
+        <mat-error *ngIf="signupForm.get('username').hasError('required')">Email is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Password" formControlName="password" type="password">
+        <mat-error *ngIf="signupForm.get('password').hasError('required')">Email is required</mat-error>
+      </mat-form-field>
+        <button mat-flat-button style="width: 100%" color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+    </form>
+  </mat-card>
+</div>
+<div class="background"></div>

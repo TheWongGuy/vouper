@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyDc9uHnactMGIYoV6FksUjWSjKEgQ-rjEY',
+    authDomain: 'vouper-1b2ce.firebaseapp.com',
+    databaseURL: 'https://vouper-1b2ce.firebaseio.com',
+    projectId: 'vouper-1b2ce',
+    storageBucket: '',
+    messagingSenderId: '157117540417',
+    appId: '1:157117540417:web:7090033c13065cd3'
+  }
 };
 
 /*
