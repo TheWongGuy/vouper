@@ -1,0 +1,14 @@
+.toolbar {
+    color: white;
+    background-color:transparent;
+    border-bottom-style: solid ;
+    border-bottom-color: peachpuff;
+    border-bottom-width: 0.15px;
+}
+
+.glass {
+    width: 100%;
+    height: 100%;
+    filter: blur(100px);
+    -webkit-filter: blur(1px);
+}
