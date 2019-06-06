@@ -1,22 +1,16 @@
-<div class="container">
-  <mat-card class="signup-form">
-    <form class="full-width" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Email" formControlName="email">
-        <mat-error *ngIf="signupForm.get('email').hasError('email') && !signupForm.get('email').hasError('required')">
-          Please enter a valid email</mat-error>
-        <mat-error *ngIf="signupForm.get('email').hasError('required')">Email is required</mat-error>
+  <div class="signup-form">
+    <form class="full-width" [formGroup]="signupForm" (ngSubmit)="signIn()">
+      <mat-form-field  appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="test@test.com" formControlName="email">
       </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Username" formControlName="username">
-        <mat-error *ngIf="signupForm.get('username').hasError('required')">Email is required</mat-error>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="" formControlName="password" type="password">
+<!--        <mat-error *ngIf="signupForm.get('password').hasError('required')">Password is required</mat-error> -->
       </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Password" formControlName="password" type="password">
-        <mat-error *ngIf="signupForm.get('password').hasError('required')">Email is required</mat-error>
-      </mat-form-field>
-        <button mat-flat-button style="width: 100%" color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+      <mat-error>{{ signUpError }}</mat-error>
+        <button name="signup" mat-flat-button style="width: 100%; background-color: #00b0ff;" color="primary" type="button" (click)="signUp()" [disabled]="!signupForm.valid">Sign Up</button>
+        <button name="login" mat-flat-button style="width: 100%; margin-top: 5px" color="warn" type="submit">Log In</button>
     </form>
-  </mat-card>
-</div>
-<div class="background"></div>
+  </div>

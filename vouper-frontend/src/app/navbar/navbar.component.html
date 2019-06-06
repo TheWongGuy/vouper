@@ -1,4 +1,17 @@
 <mat-toolbar class="toolbar">
-  Vouper
-  <div class="glass"></div>
+  <div matRipple class="toolbarButton" (click)="goHome()">
+    <h1>
+      Vouper
+    </h1>
+  </div>
+  <div matRipple *ngIf="!signedIn" class="toolbarButton" (click)="goSignUp()">
+    <h1>
+      Sign Up
+    </h1>
+  </div>
+  <div matRipple *ngIf="signedIn" class="toolbarButton" (click)="goSignOut()">
+    <h1>
+      Log Out
+    </h1>
+  </div>
 </mat-toolbar>
