@@ -1,0 +1,16 @@
+  <div class="signup-form">
+    <form class="full-width" [formGroup]="signupForm" (ngSubmit)="signIn()">
+      <mat-form-field  appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="test@test.com" formControlName="email">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="" formControlName="password" type="password">
+<!--        <mat-error *ngIf="signupForm.get('password').hasError('required')">Password is required</mat-error> -->
+      </mat-form-field>
+      <mat-error>{{ signUpError }}</mat-error>
+        <button name="signup" mat-flat-button style="width: 100%; background-color: #00b0ff;" color="primary" type="button" (click)="signUp()" [disabled]="!signupForm.valid">Sign Up</button>
+        <button name="login" mat-flat-button style="width: 100%; margin-top: 5px" color="warn" type="submit">Log In</button>
+    </form>
+  </div>
