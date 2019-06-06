@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar.component';
 
-import { MatToolbarModule } from '@angular/material';
+import { MatToolbarModule, MatRippleModule } from '@angular/material';
 
 /**
  * `NavbarModule`
@@ -14,7 +14,8 @@ import { MatToolbarModule } from '@angular/material';
   imports: [
     CommonModule,
 
-    MatToolbarModule
+    MatToolbarModule,
+    MatRippleModule
   ],
   exports: [
     NavbarComponent
