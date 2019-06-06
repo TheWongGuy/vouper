@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
       (msg) => { this.signUpError = msg; });
   }
 
-  constructor(public authService: AuthenticationService, public router: Router) { 
+  constructor(public authService: AuthenticationService, public router: Router) {
   }
 
   ngOnInit() {
