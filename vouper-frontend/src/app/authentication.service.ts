@@ -53,13 +53,4 @@ export class AuthenticationService {
     });
   }
 
-  currentUser() {
-    return this.firebaseAuth.auth.currentUser;
-  }
-
-  isSignedIn() {
-    return (this.firebaseAuth.auth.currentUser != null);
-  }
-
-
 }
