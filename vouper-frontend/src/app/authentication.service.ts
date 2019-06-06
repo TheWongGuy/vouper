@@ -29,7 +29,7 @@ export class AuthenticationService {
       });
   }
 
-  signin(email: string, password: string, signInCallback = (msg) => { }){
+  signin(email: string, password: string, signInCallback = (msg) => { }) {
     this.firebaseAuth
     .auth
     .signInWithEmailAndPassword(email, password)
@@ -60,5 +60,6 @@ export class AuthenticationService {
   isSignedIn() {
     return (this.firebaseAuth.auth.currentUser != null);
   }
+
 
 }
