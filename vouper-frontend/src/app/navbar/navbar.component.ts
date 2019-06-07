@@ -12,6 +12,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  signOut() {
+    this.authService.signout();
+  }
+
   constructor(private router: Router, public authService: AuthenticationService) {
   }
 

@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { NavbarModule } from './navbar/navbar.module';
 import { AuthModule } from './auth/auth.module';
 import { LandingComponent } from './landing/landing.component';
+import { HomeModule } from './home/home.module';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
 
     NavbarModule,
     AuthModule,
+    HomeModule,
 
     AppRoutingModule
   ],
