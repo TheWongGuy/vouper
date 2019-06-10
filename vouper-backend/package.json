@@ -1,0 +1,40 @@
+{
+  "name": "vouper-backend",
+  "version": "1.0.0",
+  "description": "Backend for vouper",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheWongGuy/vouper.git"
+  },
+  "author": "Adam Wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheWongGuy/vouper/issues"
+  },
+  "homepage": "https://github.com/TheWongGuy/vouper#readme",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-json": "^2.0.18",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.0.40",
+    "@types/node": "^12.0.7",
+    "chalk": "^2.4.2",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.0.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-mongo": "^1.8.1",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.5.13",
+    "nodemon": "^1.19.1"
+  }
+}

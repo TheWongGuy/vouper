@@ -1,34 +1,48 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { callbackify } from 'util';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   user: Observable<firebase.User>;
+  sessionId: ReplaySubject<string>;
   isLoggedIn = false;
   redirectUrl: string;
 
-  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private firebaseAuth: AngularFireAuth, private router: Router, private apiService: ApiService) {
     this.user = this.firebaseAuth.authState;
+    this.sessionId = new ReplaySubject<string>();
 
     this.user.subscribe((user) => {
       if (user) {
-        this.isLoggedIn = true;
-        if (this.redirectUrl) {
-          this.router.navigate([this.redirectUrl]);
-          this.redirectUrl = null;
-        }
+        user.getIdToken(true).then((idToken) => {
+          this.apiService.createUser(idToken, user.email);
+          this.setSessionID(idToken);
+          this.isLoggedIn = true;
+          if (this.redirectUrl) {
+            this.router.navigate([this.redirectUrl]);
+            this.redirectUrl = null;
+          }
+        }).catch((error) => {
+          console.log('Session ID does not exist: ' + error);
+        });
       } else {
+        this.sessionId.next(null);
         this.router.navigate(['/']);
         this.isLoggedIn = false;
       }
     });
+  }
+
+  setSessionID(sid: string) {
+    this.sessionId.next(sid);
   }
 
   signup(email: string, password: string, signUpCallback = (msg) => { }) {
@@ -60,16 +74,13 @@ export class AuthenticationService {
   }
 
   signout() {
-    this.user.subscribe(function (state) {
-      console.log(state);
-    });
     this.firebaseAuth.auth.signOut().then(value => {
       console.log('Signed out!', value);
     })
-    .catch(err => {
-      console.log('Could not sign out:', err.message);
-      throw err;
-    });
+      .catch(err => {
+        console.log('Could not sign out:', err.message);
+        throw err;
+      });
   }
 
 }
